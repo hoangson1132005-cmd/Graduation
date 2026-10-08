@@ -6,13 +6,13 @@ const CONFIG = {
     // SEO & Open Graph (Hiển thị khi gửi link)
     ogTitle: "Thiệp mời Tốt Nghiệp - Nguyễn Hoàng Sơn",
     ogDescription: "Ba năm thanh xuân gói gọn trong một ngày. Rất mong bạn đến chung vui cùng Sơn nhé!",
-    ogImage: "assets/cyber_grad_card.png", // Thay bằng link ảnh thật của bạn
+    ogImage: "assets/thumbnail.png", // Thay bằng link ảnh thật của bạn
 
     // URL gốc của web để tạo link trong admin (ví dụ: https://thiep.vercel.app)
     baseUrl: "https://graduation-tau-nine.vercel.app",
 
     // Hình ảnh thiệp chính
-    invitationCard: "assets/cyber_grad_card.png",
+    invitationCard: "assets/thumoi.png",
 
     // File nhạc nền (URL hoặc đường dẫn nội bộ)
     musicUrl: "assets/music.mp3",
