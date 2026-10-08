@@ -649,35 +649,43 @@ END:VCALENDAR`;
             
             // IT Confetti Celebration
             if (data.attendance === 'yes' && typeof confetti !== 'undefined') {
-                const scalar = 2;
-                const cap = confetti.shapeFromText({ text: '🎓', scalar });
-                const zero = confetti.shapeFromText({ text: '0', scalar });
-                const one = confetti.shapeFromText({ text: '1', scalar });
-                
-                const end = Date.now() + 4000; // 4 seconds of rain
+                if (typeof confetti.shapeFromText === 'function') {
+                    const scalar = 2;
+                    const cap = confetti.shapeFromText({ text: '🎓', scalar });
+                    const zero = confetti.shapeFromText({ text: '0', scalar });
+                    const one = confetti.shapeFromText({ text: '1', scalar });
+                    
+                    const end = Date.now() + 4000; // 4 seconds of rain
 
-                (function frame() {
-                    confetti({
-                        particleCount: 3,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                        colors: ['#3b82f6', '#10b981', '#ffffff'],
-                        shapes: [cap, zero, one]
-                    });
-                    confetti({
-                        particleCount: 3,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                        colors: ['#3b82f6', '#10b981', '#ffffff'],
-                        shapes: [cap, zero, one]
-                    });
+                    (function frame() {
+                        confetti({
+                            particleCount: 3,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: ['#3b82f6', '#10b981', '#ffffff'],
+                            shapes: [cap, zero, one]
+                        });
+                        confetti({
+                            particleCount: 3,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: ['#3b82f6', '#10b981', '#ffffff'],
+                            shapes: [cap, zero, one]
+                        });
 
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+                } else {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
             }
 
             rsvpForm.reset();
