@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(res => res.text())
                 .then(csv => {
                     const rows = csv.split('\n').slice(1);
-                    guestbookContainer.innerHTML = '';
+                    let contentHTML = '';
                     let count = 0;
                     rows.forEach(row => {
                         // Regex to split by comma, but ignore commas inside quotes
@@ -359,8 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             const approved = cols[5] ? cols[5].trim().toLowerCase().replace(/^"|"$/g, '') : '';
                             if (approved === 'yes' && message) {
                                 count++;
-                                guestbookContainer.innerHTML += `
-                                    <div class="glass-card p-6 rounded-lg relative">
+                                contentHTML += `
+                                    <div class="glass-card p-6 rounded-lg relative min-w-[320px] max-w-[380px] whitespace-normal flex-shrink-0 cursor-default">
                                         <i class="fas fa-quote-left text-main-accent/30 text-4xl absolute top-4 left-4"></i>
                                         <p class="relative z-10 text-slate-text italic mb-4 mt-2">"${message}"</p>
                                     </div>
@@ -368,7 +368,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     });
-                    if (count === 0) guestbookContainer.innerHTML = '<div class="glass-card p-6 rounded-lg text-center text-slate-muted italic col-span-full">Đang chờ những lời chúc đầu tiên...</div>';
+                    if (count === 0) {
+                        guestbookContainer.innerHTML = '<div class="glass-card p-6 rounded-lg text-center text-slate-muted italic w-full">Đang chờ những lời chúc đầu tiên...</div>';
+                        guestbookContainer.classList.remove('animate-marquee');
+                    } else {
+                        // Duplicate content to create a seamless infinite scrolling loop
+                        guestbookContainer.innerHTML = contentHTML + contentHTML;
+                        guestbookContainer.classList.add('animate-marquee');
+                    }
                 })
                 .catch(() => {
                     guestbookContainer.innerHTML = '<div class="glass-card p-6 rounded-lg text-center text-slate-muted italic col-span-full">Dữ liệu từ Google Sheets chưa được công khai.</div>';
