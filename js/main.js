@@ -96,9 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Will bypass boot sequence later
     }
 
+    const fullNameWithPronoun = guestPronounRaw ? `${pronoun} ${guestName}` : guestName;
+    const myPronounCap = myPronoun.charAt(0).toUpperCase() + myPronoun.slice(1);
+
     // 2. Điền dữ liệu từ CONFIG
     if (CONFIG.ogTitle) document.title = CONFIG.ogTitle;
-    document.getElementById('cover-greeting').innerText = `Preparing invitation for [${guestName}]...`;
+    document.getElementById('cover-greeting').innerText = `Preparing invitation for [${fullNameWithPronoun}]...`;
     
     // Hero text - Hacker Effect
     const heroGreeting = document.getElementById('hero-greeting');
@@ -107,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const decryptBox = document.getElementById('decrypt-box');
     const decryptBtn = document.getElementById('decrypt-btn');
 
-    const finalHtml = `${myPronoun} xin trân trọng mời <span class="text-main-accent font-bold">${guestName}</span><br>đến dự Lễ Tốt Nghiệp của ${CONFIG.ownerName}.`;
-    const plainText = `${myPronoun} xin trân trọng mời ${guestName} đến dự Lễ Tốt Nghiệp của ${CONFIG.ownerName}.`;
+    const finalHtml = `${myPronounCap} xin trân trọng mời <span class="text-main-accent font-bold">${fullNameWithPronoun}</span><br>đến dự Lễ Tốt Nghiệp của ${CONFIG.ownerName}.`;
+    const plainText = `${myPronounCap} xin trân trọng mời ${fullNameWithPronoun} đến dự Lễ Tốt Nghiệp của ${CONFIG.ownerName}.`;
 
     if (isTeacherMode) {
         // Giáo viên: Không giải mã dài dòng, hiện thẳng chữ
@@ -264,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.5 });
     
     msgObserver.observe(messageEl);
-    document.getElementById('footer-name').innerText = guestName;
+    document.getElementById('footer-name').innerText = fullNameWithPronoun;
     document.getElementById('contact-phone').href = `tel:${CONFIG.contact.phone.replace(/\./g, '')}`;
     
 
@@ -410,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (lowerVal === 'about') {
                         response = "Hệ thống Tốt Nghiệp v1.0. Được thiết kế bởi dân IT.";
                     } else if (lowerVal === 'thanks') {
-                        response = `Cảm ơn ${guestName} đã đến chung vui! Sự hiện diện của ${pronoun} là niềm vinh hạnh.`;
+                        response = `Cảm ơn ${fullNameWithPronoun} đã đến chung vui! Sự hiện diện của ${pronoun} là niềm vinh hạnh.`;
                     } else if (lowerVal === 'ls memories') {
                         response = "drwxr-xr-x 2 root root 4096 Sep 05 2022 year1<br>drwxr-xr-x 2 root root 4096 May 10 2024 year2_and_3<br>drwxr-xr-x 2 root root 4096 Dec 15 2026 graduation";
                     } else if (lowerVal === 'clear') {
@@ -483,13 +486,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioToggle.innerHTML = '<i class="fas fa-music"></i>';
             }).catch(e => console.log("Auto-play prevented", e));
 
-            const bootLines = CONFIG.bootLines ? CONFIG.bootLines.map(l => l.replace('{guestName}', guestName)) : [
+            const bootLines = CONFIG.bootLines ? CONFIG.bootLines.map(l => l.replace('{guestName}', fullNameWithPronoun)) : [
                 "Booting GraduationOS v1.0.0...",
                 "Loading kernel drivers......... [ OK ]",
                 "Mounting filesystems........... [ OK ]",
                 "Starting networking service.... [ OK ]",
                 "Establishing secure connection to guest...",
-                `Target identified: ${guestName} (Privilege Level: V.I.P)`,
+                `Target identified: ${fullNameWithPronoun} (Privilege Level: V.I.P)`,
                 "Decrypting invitation payload.. [ 100% ]",
                 "Bypassing firewall............. [ SUCCESS ]",
                 "Executing ./mo_thiep.sh........",
