@@ -9,7 +9,7 @@ const CONFIG = {
     ogImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop", // Thay bằng link ảnh thật của bạn
 
     // URL gốc của web để tạo link trong admin (ví dụ: https://thiep.vercel.app)
-    baseUrl: "https://hoangson-graduation.vercel.app",
+    baseUrl: "https://graduation-tau-nine.vercel.app",
 
     // Hình ảnh thiệp chính
     invitationCard: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
