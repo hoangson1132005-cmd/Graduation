@@ -344,19 +344,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestbookContainer = document.getElementById('guestbook-container');
     if (guestbookContainer) {
         if (CONFIG.guestbookCsvUrl) {
-            fetch(CONFIG.guestbookCsvUrl)
+            fetch(CONFIG.guestbookCsvUrl + '&t=' + new Date().getTime())
                 .then(res => res.text())
                 .then(csv => {
-                    // Simple CSV Parse (Note: doesn't handle commas inside quotes well, but enough for basic needs)
                     const rows = csv.split('\n').slice(1);
                     guestbookContainer.innerHTML = '';
                     let count = 0;
                     rows.forEach(row => {
-                        const cols = row.split(',');
+                        // Regex to split by comma, but ignore commas inside quotes
+                        const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                         if(cols.length >= 6) {
-                            const name = cols[1].trim();
-                            const message = cols[4].trim();
-                            const approved = cols[5] ? cols[5].trim().toLowerCase() : '';
+                            const name = cols[1].trim().replace(/^"|"$/g, '');
+                            const message = cols[4].trim().replace(/^"|"$/g, '');
+                            const approved = cols[5] ? cols[5].trim().toLowerCase().replace(/^"|"$/g, '') : '';
                             if (approved === 'yes' && message) {
                                 count++;
                                 guestbookContainer.innerHTML += `
