@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (xh === 'co' || xh === 'cô') { pronoun = "Cô"; myPronoun = "Em"; endWord = "ạ"; isTeacherMode = true; }
         else if (xh === 'anh') { pronoun = "anh"; myPronoun = "em"; endWord = "nhé"; }
         else if (xh === 'chi' || xh === 'chị') { pronoun = "chị"; myPronoun = "em"; endWord = "nhé"; }
+        else { pronoun = guestPronounRaw; } // Chấp nhận các xưng hô tùy chỉnh như "bé iu", "chú", v.v.
     }
 
     if (isTeacherMode) {
