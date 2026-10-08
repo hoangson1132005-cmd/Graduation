@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lễ Tốt Nghiệp</title>
+    <!-- Open Graph tags cho Zalo/Facebook -->
+    <meta property="og:title" content="Lễ Tốt Nghiệp của Sinh Viên CNTT">
+    <meta property="og:description" content="Trân trọng kính mời đến dự lễ tốt nghiệp của mình.">
+    <!-- CẦN SỬA: thay bằng link ảnh của bạn để hiển thị đẹp khi gửi link -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { dark: '#f8fafc', light: '#ffffff', lighter: '#e2e8f0' }, // Nền sáng
+                        main: { accent: '#3b82f6' }, // Xanh Blue tươi sáng
+                        slate: { text: '#1e293b', muted: '#64748b' }
+                    },
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-navy-dark text-slate-text font-sans antialiased code-bg overflow-hidden">
+    
+    <!-- Custom IT Cursor -->
+    <div class="custom-cursor hidden md:block" id="custom-cursor"></div>
+    <div class="custom-cursor-follower hidden md:block" id="custom-cursor-follower"></div>
+
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <!-- Background Particles Container -->
+    <div id="tsparticles" class="fixed inset-0 z-0 pointer-events-none opacity-60"></div>
+
+    <!-- 1. Màn hình Bìa -->
+    <div id="cover-screen" class="fixed inset-0 z-50 bg-navy-dark flex flex-col items-center justify-center transition-all duration-1000">
+        <div id="cover-content" class="border border-main-accent p-8 rounded-lg shadow-[0_0_20px_rgba(59,130,246,0.15)] text-center max-w-sm w-[90%] glass-card transition-opacity duration-500">
+            <div class="mb-6 flex justify-center text-main-accent text-5xl">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1 class="font-mono text-xl text-main-accent mb-4 typing-effect inline-block w-auto mx-auto whitespace-nowrap">./mo_thiep.sh</h1>
+            <p class="font-mono text-sm text-slate-muted mb-8" id="cover-greeting">Đang tải dữ liệu...</p>
+            <button id="open-btn" class="w-full py-3 border border-main-accent text-main-accent font-mono hover:bg-main-accent hover:text-white transition-colors duration-300 rounded neon-btn">
+                <i class="fas fa-terminal mr-2"></i> MỞ THIỆP
+            </button>
+        </div>
+
+        <!-- Terminal Boot Sequence -->
+        <div id="boot-sequence" class="hidden absolute inset-0 bg-black text-[#0f0] font-mono text-sm sm:text-base p-6 overflow-hidden flex-col justify-end text-left z-50">
+            <!-- Lines injected by JS -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden relative z-10">
+        <!-- Floating Audio -->
+        <button id="audio-toggle" class="fixed bottom-6 right-6 z-40 bg-navy-light border border-main-accent w-12 h-12 rounded-full flex items-center justify-center text-main-accent shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:bg-main-accent hover:text-white transition-all">
+            <i class="fas fa-music"></i>
+        </button>
+
+        <!-- 2. Hero Section -->
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-10 pb-20 text-center relative border-b border-navy-lighter overflow-hidden">
+            <i class="fas fa-code absolute right-5 md:right-20 top-32 text-[10rem] md:text-[20rem] text-slate-200/40 -z-10 transform rotate-12"></i>
+            <div data-aos="fade-up" class="max-w-2xl relative z-10 glass-card p-10 rounded-2xl w-full shadow-lg">
+                <div class="font-mono text-main-accent mb-4 text-sm md:text-base flex items-center justify-center gap-2">
+                    <span class="animate-pulse inline-block w-2 h-2 bg-red-500 rounded-full"></span> 
+                    > he_thong.nhan_tin_nhan()
+                </div>
+                
+                <!-- Interactive Decrypt Box -->
+                <div id="decrypt-box" class="cursor-pointer group py-6">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6 text-slate-text leading-relaxed" id="hero-greeting" style="min-height: 100px;">
+                        <!-- Binary injected via JS -->
+                    </h2>
+                    <div class="text-sm font-mono text-main-accent border border-main-accent rounded-full inline-block px-5 py-2 group-hover:bg-main-accent group-hover:text-white transition-colors shadow-sm" id="decrypt-btn">
+                        <i class="fas fa-fingerprint mr-2"></i> Chạm để giải mã thư mời
+                    </div>
+                </div>
+
+                <p class="text-slate-muted text-lg font-mono mb-10 opacity-0 transition-opacity duration-1000" id="hero-subtitle">
+                    /* Rất mong được đón <span class="xh-text">...</span> đến chung vui */
+                </p>
+                <a href="#card-section" class="animate-bounce inline-block text-main-accent text-2xl mt-4 opacity-0 transition-opacity duration-1000" id="hero-scroll-btn">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- 3. Thiệp Mời Ảnh -->
+        <section class="py-20 px-6 border-b border-navy-lighter relative" id="card-section">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                <div class="font-mono text-main-accent mb-8 text-center text-xl">> ./xem_thiep.jpg</div>
+                <div class="glass-card p-4 rounded-lg text-center">
+                    <img id="card-img" src="" alt="Thiệp mời" class="max-w-full h-auto mx-auto rounded mb-6">
+                    <a id="download-card" href="#" download="thiep_moi.jpg" class="inline-block px-6 py-3 bg-main-accent/10 border border-main-accent text-main-accent rounded font-mono hover:bg-main-accent hover:text-white transition-colors neon-btn">
+                        <i class="fas fa-download mr-2"></i> Tải Thiệp Về
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Thời gian, Địa điểm & Đếm ngược -->
+        <section id="event-details" class="py-20 px-6 border-b border-navy-lighter relative overflow-hidden">
+            <i class="fas fa-map-marked-alt absolute left-0 top-1/3 text-[15rem] text-slate-200/40 -z-10 transform -rotate-12"></i>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div data-aos="fade-right" class="glass-card p-8 rounded-lg relative overflow-hidden group transition-shadow">
+                        <i class="fas fa-calendar-alt text-3xl text-main-accent mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Thời Gian</h3>
+                        <p class="text-slate-muted font-mono" id="event-time"></p>
+                        <p class="text-slate-muted font-mono mb-4" id="event-date"></p>
+                        <button id="add-calendar" class="text-sm border border-slate-muted text-slate-muted px-4 py-2 rounded hover:border-main-accent hover:text-main-accent transition-colors">
+                            <i class="fas fa-calendar-plus mr-1"></i> Add to Calendar
+                        </button>
+                    </div>
+                    
+                    <div data-aos="fade-left" class="glass-card p-8 rounded-lg relative overflow-hidden group transition-shadow">
+                        <i class="fas fa-map-marker-alt text-3xl text-main-accent mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Địa Điểm</h3>
+                        <p class="text-slate-muted mb-2" id="event-location"></p>
+                        <p class="text-slate-muted text-sm mb-4" id="event-address"></p>
+                        
+                        <!-- Weather -->
+                        <div class="bg-navy-dark/50 p-3 rounded mb-4 font-mono text-sm border-l-2 border-yellow-500">
+                            <i class="fas fa-cloud-sun text-yellow-500 mr-2"></i>
+                            <span id="weather-info" class="text-slate-text"></span>
+                            <div id="weather-advice" class="text-slate-muted text-xs mt-1"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <a id="map-link" href="#" target="_blank" class="text-center text-sm border border-slate-muted text-slate-muted px-4 py-2 rounded hover:border-main-accent hover:text-main-accent transition-colors">
+                                <i class="fas fa-map-marked-alt mr-1"></i> Mở Google Maps
+                            </a>
+                            <a id="grab-link" href="#" target="_blank" class="text-center text-sm bg-[#00B14F]/10 border border-[#00B14F] text-[#00B14F] px-4 py-2 rounded hover:bg-[#00B14F] hover:text-white transition-colors">
+                                <i class="fas fa-car mr-1"></i> Đặt xe qua Grab
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Countdown -->
+                <div data-aos="zoom-in" class="glass-card rounded-lg p-6 text-center max-w-2xl mx-auto">
+                    <div class="font-mono text-sm text-slate-muted mb-4">T-MINUS</div>
+                    <div class="flex justify-center gap-4 text-center font-mono">
+                        <div>
+                            <div id="cd-days" class="text-3xl md:text-5xl text-main-accent font-bold">00</div>
+                            <div class="text-xs text-slate-muted mt-1">NGÀY</div>
+                        </div>
+                        <div class="text-3xl md:text-5xl text-slate-muted">:</div>
+                        <div>
+                            <div id="cd-hours" class="text-3xl md:text-5xl text-main-accent font-bold">00</div>
+                            <div class="text-xs text-slate-muted mt-1">GIỜ</div>
+                        </div>
+                        <div class="text-3xl md:text-5xl text-slate-muted">:</div>
+                        <div>
+                            <div id="cd-mins" class="text-3xl md:text-5xl text-main-accent font-bold">00</div>
+                            <div class="text-xs text-slate-muted mt-1">PHÚT</div>
+                        </div>
+                        <div class="text-3xl md:text-5xl text-slate-muted">:</div>
+                        <div>
+                            <div id="cd-secs" class="text-3xl md:text-5xl text-main-accent font-bold">00</div>
+                            <div class="text-xs text-slate-muted mt-1">GIÂY</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mt-8 text-left w-full border-t border-navy-lighter pt-6">
+                        <div class="flex justify-between font-mono text-sm mb-2 text-slate-muted">
+                            <span>> Tốt_Nghiệp.exe đang tải...</span>
+                            <span id="progress-percent" class="text-main-accent font-bold">0%</span>
+                        </div>
+                        <div class="w-full h-2 bg-navy-dark rounded overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-main-accent transition-all duration-1000 w-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Hướng Dẫn -->
+        <section class="py-20 px-6 border-b border-navy-lighter">
+            <div class="max-w-4xl mx-auto">
+                <div class="font-mono text-main-accent mb-12 text-center text-xl">> cat huong_dan.md</div>
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <div data-aos="fade-right" class="flex flex-col gap-6">
+                        <div id="guide-vr-container">
+                            <h4 class="font-mono text-sm text-main-accent mb-2">> Toàn cảnh 360° (Tương tác)</h4>
+                            <iframe id="guide-vr" src="" class="w-full h-64 rounded-lg shadow-lg border border-navy-lighter" allowfullscreen></iframe>
+                        </div>
+                        <div id="guide-img-container">
+                            <h4 class="font-mono text-sm text-main-accent mb-2">> Sơ đồ di chuyển</h4>
+                            <img id="guide-img" src="" alt="Sơ đồ" class="w-full rounded-lg shadow-lg border border-navy-lighter">
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" class="glass-card p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-slate-text">Hướng Dẫn Di Chuyển</h3>
+                        <ul id="guide-steps" class="space-y-4 mb-8 text-slate-muted">
+                            <!-- Injected -->
+                        </ul>
+                        <div class="glass-card p-4 rounded border-l-4 border-main-accent">
+                            <h4 class="font-mono text-sm text-main-accent mb-2">! Lưu ý:</h4>
+                            <ul id="guide-notes" class="list-disc list-inside text-sm text-slate-muted space-y-2">
+                                <!-- Injected -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Cảm Nghĩ & 7. Gallery -->
+        <section class="py-20 px-6 border-b border-navy-lighter relative overflow-hidden">
+            <i class="fas fa-camera-retro absolute right-0 bottom-10 text-[20rem] text-slate-200/40 -z-10 transform rotate-[-15deg]"></i>
+            <div class="max-w-5xl mx-auto">
+                <div class="font-mono text-main-accent mb-12 text-center text-xl">> less hanh_trinh.txt</div>
+                
+                <div data-aos="fade-up" class="glass-card p-8 rounded-lg mb-16 text-center">
+                    <i class="fas fa-quote-left text-3xl text-navy-lighter mb-4"></i>
+                    <p id="personal-message" class="text-lg leading-relaxed text-slate-text italic"></p>
+                    <i class="fas fa-quote-right text-3xl text-navy-lighter mt-4"></i>
+                </div>
+
+                <!-- Git Log Timeline -->
+                <div class="mt-20" data-aos="fade-up">
+                    <div class="font-mono text-main-accent mb-8 text-center text-xl">> git log --graph --oneline</div>
+                    <div id="git-log-container" class="font-mono text-sm md:text-base relative border-l-2 border-main-accent ml-4 md:ml-10">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. RSVP -->
+        <section class="py-20 px-6 border-b border-navy-lighter relative">
+            <div class="max-w-2xl mx-auto" data-aos="zoom-in">
+                <div class="font-mono text-main-accent mb-8 text-center text-xl">> ./gui_xac_nhan.sh</div>
+                
+                <div class="glass-card p-8 rounded-lg">
+                    <form id="rsvp-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-mono text-slate-muted mb-2">Tên của bạn *</label>
+                            <input type="text" id="rsvp-name" required class="w-full bg-navy-dark border border-navy-lighter rounded p-3 text-slate-text focus:outline-none focus:border-main-accent transition-colors" placeholder="Nhập tên...">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-mono text-slate-muted mb-2">Xác nhận tham dự *</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="attendance" value="yes" class="peer sr-only" checked>
+                                    <div class="text-center p-3 border border-navy-lighter rounded peer-checked:border-main-accent peer-checked:text-main-accent peer-checked:bg-main-accent/10 transition-all">
+                                        <i class="fas fa-check-circle mr-2"></i>Sẽ đến
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="attendance" value="no" class="peer sr-only">
+                                    <div class="text-center p-3 border border-navy-lighter rounded peer-checked:border-red-500 peer-checked:text-red-500 peer-checked:bg-red-50 transition-all">
+                                        <i class="fas fa-times-circle mr-2"></i>Không thể đến
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="companions-div">
+                            <label class="block text-sm font-mono text-slate-muted mb-2">Số người đi cùng</label>
+                            <select id="rsvp-companions" class="w-full bg-navy-dark border border-navy-lighter rounded p-3 text-slate-text focus:outline-none focus:border-main-accent appearance-none">
+                                <option value="0">Đi một mình</option>
+                                <option value="1">+ 1 người</option>
+                                <option value="2">+ 2 người</option>
+                                <option value="3">+ 3 người</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-mono text-slate-muted mb-2">Lời nhắn</label>
+                            <textarea id="rsvp-message" rows="3" class="w-full bg-navy-dark border border-navy-lighter rounded p-3 text-slate-text focus:outline-none focus:border-main-accent transition-colors" placeholder="Gửi vài lời chúc..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-main-accent/10 border border-main-accent text-main-accent font-bold rounded hover:bg-main-accent hover:text-white transition-colors neon-btn" id="submit-btn">
+                            <i class="fas fa-paper-plane mr-2"></i> GỬI XÁC NHẬN
+                        </button>
+                        
+                        <div id="form-msg" class="hidden text-center text-sm p-3 rounded font-mono mt-4"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Tường Lời Chúc & Album -->
+        <section class="py-20 px-6 border-b border-navy-lighter bg-navy-light/10 relative">
+            <div class="max-w-5xl mx-auto">
+                <div class="font-mono text-main-accent mb-8 text-center text-xl">> cat wall_of_fame.log</div>
+                
+                <div id="guestbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    <div class="glass-card p-6 rounded-lg text-center text-slate-muted italic col-span-full">
+                        Đang đồng bộ dữ liệu từ vệ tinh...
+                    </div>
+                </div>
+                
+                <!-- Album sau lễ -->
+                <div class="text-center mt-16" data-aos="fade-up">
+                    <div class="font-mono text-main-accent mb-4">> ./xem_album_anh.sh</div>
+                    <a id="album-link" href="#" target="_blank" class="inline-block px-6 py-3 bg-main-accent/10 border border-main-accent text-main-accent rounded font-mono hover:bg-main-accent hover:text-white transition-colors neon-btn">
+                        <i class="fas fa-images mr-2"></i> Xem Album Kỷ Niệm (Sẽ update sau lễ)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Interactive Terminal -->
+        <section class="py-10 px-6 border-b border-navy-lighter relative bg-navy-dark">
+            <div class="max-w-3xl mx-auto glass-card p-4 rounded-lg font-mono text-sm shadow-lg bg-black/80">
+                <div class="flex items-center gap-2 mb-2 pb-2 border-b border-navy-lighter/50 text-slate-muted">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-2">guest@graduation: ~</span>
+                </div>
+                <div id="terminal-output" class="text-green-400 mb-2 max-h-40 overflow-y-auto space-y-1 scrollbar-thin">
+                    <div>> Gõ 'help' để xem danh sách lệnh.</div>
+                </div>
+                <div class="flex text-green-400 mt-2">
+                    <span class="mr-2">$</span>
+                    <input type="text" id="terminal-input" class="bg-transparent outline-none flex-1 text-green-400 placeholder-green-700/50" placeholder="Nhập lệnh..." autocomplete="off">
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="py-10 text-center border-t border-navy-lighter text-slate-muted font-mono text-sm bg-navy-dark">
+            <p class="mb-2 text-base md:text-lg">Rất mong sự có mặt của <span id="footer-name" class="text-main-accent font-bold"></span> ❤️</p>
+            <p class="mb-4 text-xs opacity-40 hover:opacity-100 transition-opacity cursor-default">Gợi ý bí mật: Bấm <span class="bg-slate-800 px-1 rounded">↑</span> <span class="bg-slate-800 px-1 rounded">↑</span> <span class="bg-slate-800 px-1 rounded">↓</span> <span class="bg-slate-800 px-1 rounded">↓</span> <span class="bg-slate-800 px-1 rounded">←</span> <span class="bg-slate-800 px-1 rounded">→</span> <span class="bg-slate-800 px-1 rounded">←</span> <span class="bg-slate-800 px-1 rounded">→</span> <span class="bg-slate-800 px-1 rounded">b</span> <span class="bg-slate-800 px-1 rounded">a</span></p>
+            <div class="flex justify-center gap-6 text-lg">
+                <a id="contact-phone" href="#" class="hover:text-main-accent transition-colors"><i class="fas fa-phone"></i></a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox justify-center items-center">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-slate-text text-3xl hover:text-main-accent"><i class="fas fa-times"></i></button>
+        <img id="lightbox-img" src="" alt="Zoomed" class="lightbox-content">
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Easter Egg Modal -->
+    <div id="easter-egg-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center">
+        <div class="glass-card p-8 rounded-lg max-w-md w-full text-center border-2 border-green-500">
+            <h2 class="text-2xl font-mono text-green-500 mb-4">> SYSTEM HACKED!</h2>
+            <img id="easter-egg-img" src="" class="w-full h-auto rounded mb-4 shadow-[0_0_15px_#22c55e]">
+            <p id="easter-egg-text" class="text-green-400 font-mono text-sm mb-6"></p>
+            <button id="close-easter-egg" class="px-6 py-2 bg-green-500/20 text-green-500 border border-green-500 rounded font-mono hover:bg-green-500 hover:text-black transition-colors">
+                EXIT()
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tạo Link Thiệp Mời</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { dark: '#f8fafc', light: '#ffffff', lighter: '#e2e8f0' },
+                        main: { accent: '#3b82f6' },
+                        slate: { text: '#1e293b', muted: '#64748b' }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'JetBrains Mono', monospace; background-color: #f8fafc; color: #1e293b; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-main-accent mb-2">./quan_ly_thiep.sh</h1>
+        <p class="text-slate-muted mb-8">Công cụ tạo link thiệp mời cá nhân hóa.</p>
+
+        <div class="bg-navy-light p-6 rounded-lg border border-navy-lighter mb-8 shadow-sm">
+            <h2 class="text-xl mb-4 text-main-accent"><i class="fas fa-file-import mr-2"></i>Nhập danh sách khách mời</h2>
+            <p class="text-sm text-slate-muted mb-4">Dán danh sách từ Excel hoặc nhập thủ công. Mỗi dòng 1 người.<br>Định dạng: <code>Tên, Xưng hô</code> (VD: <code>Minh Anh, bạn</code> hoặc <code>Nguyễn Văn A, thầy</code>)</p>
+            
+            <textarea id="csv-input" rows="8" class="w-full bg-navy-dark border border-navy-lighter rounded p-3 text-slate-text focus:outline-none focus:border-main-accent mb-4 transition-colors" placeholder="Minh Anh, bạn&#10;Thầy Tuấn, thầy&#10;Chị Lan, chị"></textarea>
+            
+            <div class="flex gap-4">
+                <button id="generate-btn" class="bg-main-accent text-white px-6 py-2 rounded hover:bg-opacity-90 font-bold transition-all shadow-sm">
+                    <i class="fas fa-cogs mr-2"></i> Tạo Link
+                </button>
+                <button id="clear-btn" class="border border-red-500 text-red-500 px-6 py-2 rounded hover:bg-red-50 transition-all">
+                    Xóa
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-navy-light p-6 rounded-lg border border-navy-lighter shadow-sm" id="result-section" style="display: none;">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl text-main-accent"><i class="fas fa-list mr-2"></i>Danh sách Link (<span id="link-count">0</span>)</h2>
+                <button id="copy-all-btn" class="border border-main-accent text-main-accent px-4 py-1 rounded text-sm hover:bg-main-accent hover:text-white transition-all">
+                    <i class="fas fa-copy mr-1"></i> Copy Tất Cả Link
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-navy-lighter text-slate-muted">
+                            <th class="p-2">Tên</th>
+                            <th class="p-2">Xưng hô</th>
+                            <th class="p-2">Link</th>
+                            <th class="p-2 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="link-table-body">
+                        <!-- Injected -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
