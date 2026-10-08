@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             const cleanXh = mapXh[xh] || xh;
 
-            const url = `${baseUrl}/?ten=${encodeURIComponent(name)}&xh=${encodeURIComponent(cleanXh)}`;
+            const url = `${baseUrl}/?ten=${encodeURIComponent(name)}&xh=${encodeURIComponent(cleanXh)}&v=1`;
             
             generatedLinks.push(url);
 
