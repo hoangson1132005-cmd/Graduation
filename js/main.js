@@ -383,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <div class="glass-card p-6 rounded-lg relative min-w-[320px] max-w-[380px] whitespace-normal flex-shrink-0 cursor-default">
                                         <i class="fas fa-quote-left text-main-accent/30 text-4xl absolute top-4 left-4"></i>
                                         <p class="relative z-10 text-slate-text italic mb-4 mt-2">"${message}"</p>
-                                        <p class="text-right text-main-accent font-bold">- ${name}</p>
                                     </div>
                                 `;
                             }
