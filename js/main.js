@@ -351,22 +351,39 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(CONFIG.guestbookCsvUrl + '&t=' + new Date().getTime())
                 .then(res => res.text())
                 .then(csv => {
-                    const rows = csv.split('\n').slice(1);
+                    function parseCSV(str) {
+                        const arr = [];
+                        let quote = false;
+                        let row = 0, col = 0;
+                        for (let c = 0; c < str.length; c++) {
+                            let cc = str[c], nc = str[c+1];
+                            arr[row] = arr[row] || [];
+                            arr[row][col] = arr[row][col] || '';
+                            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+                            if (cc == '"') { quote = !quote; continue; }
+                            if (cc == ',' && !quote) { ++col; continue; }
+                            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+                            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+                            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+                            arr[row][col] += cc;
+                        }
+                        return arr;
+                    }
+                    const rows = parseCSV(csv).slice(1);
                     let contentHTML = '';
                     let count = 0;
-                    rows.forEach(row => {
-                        // Regex to split by comma, but ignore commas inside quotes
-                        const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                        if(cols.length >= 6) {
-                            const name = cols[1].trim().replace(/^"|"$/g, '');
-                            const message = cols[4].trim().replace(/^"|"$/g, '');
-                            const approved = cols[5] ? cols[5].trim().toLowerCase().replace(/^"|"$/g, '') : '';
+                    rows.forEach(cols => {
+                        if(cols && cols.length >= 6) {
+                            const name = cols[1].trim();
+                            const message = cols[4].trim().replace(/\n/g, '<br/>');
+                            const approved = cols[5] ? cols[5].trim().toLowerCase() : '';
                             if (approved === 'yes' && message) {
                                 count++;
                                 contentHTML += `
                                     <div class="glass-card p-6 rounded-lg relative min-w-[320px] max-w-[380px] whitespace-normal flex-shrink-0 cursor-default">
                                         <i class="fas fa-quote-left text-main-accent/30 text-4xl absolute top-4 left-4"></i>
                                         <p class="relative z-10 text-slate-text italic mb-4 mt-2">"${message}"</p>
+                                        <p class="text-right text-main-accent font-bold">- ${name}</p>
                                     </div>
                                 `;
                             }
