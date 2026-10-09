@@ -37,7 +37,7 @@ const CONFIG = {
         startDate: "2023-08-22T00:00:00", // Ngày bắt đầu nhập học để tính tiến trình
         timeDisplay: "09:30 - 11:00 Sáng",
         dateDisplay: "Thứ Bảy, 17/10/2026",
-        location: "Trường Đại học Tôn Đức Thắng",
+        location: "Sảnh tòa C, Trường Đại học Tôn Đức Thắng",
         address: "19 Nguyễn Hữu Thọ, Phường, Tân Hưng, Hồ Chí Minh",
         mapLink: "https://maps.app.goo.gl/x2TMm8iWHMquHWzx7",
         grabLink: "https://grab.onelink.me/2695613898?pid=inappsharing&c=1-MTE1MDIwMzY&is_retargeting=true&af_dp=grab%3A%2F%2Fopen%3FscreenType%3DEXPRESS%26dropOffLatitude%3D10.7319797952372%26dropOffLongitude%3D106.69933899981007"
@@ -54,14 +54,16 @@ const CONFIG = {
     // Hướng dẫn di chuyển & Lưu ý
     guide: {
         virtualTourLink: "https://360.tdtu.edu.vn/main/#node63,-91.54,-23.46,60.68,4", // Sơ đồ 360 độ (hiển thị dạng khung nhúng)
-        mapImage: "https://drive.google.com/thumbnail?id=1yrw92lLBNp115mzBM34O3ijC7DhluPug&sz=w1000", // Link Google Drive đã fix để hiện ảnh
+        mapImage: "https://drive.google.com/uc?export=view&id=1ykocT-lrREFbVX7Vwt2PLsIgt7UTGTGM", // Link Google Drive đã fix để hiện ảnh
         steps: [
             "1. Đi vào bằng cổng 2 trên đường Nguyễn Hữu Thọ / Cổng 5 hoặc 7 trên đường D6.",
             "2. Hỏi các bác bảo vệ để gửi xe tại hầm tòa D, tòa F, tòa Nhà thi đấu, tòa M (Giá: 2.000đ/lượt). Hoặc gửi xe ở siêu thị Lotte Mart (Đ/c: 469 Nguyễn Hữu Thọ, Tân Hưng, Hồ Chí Minh) sau đó đặt xe/đi bộ (khoảng 500m) về Trường Đại học Tôn Đức Thắng",
-            "3. Khuyến khích di chuyển bằng xe công nghệ vì hôm đó đông hết chỗ gửi xe"
+            "3. Khuyến khích di chuyển bằng xe công nghệ vì hôm đó đông hết chỗ gửi xe",
+            "4. Sơn sẽ gặp mọi người ở sảnh tòa C, khu vực gần văn phòng C004 - Văn phòng khoa Công nghệ thông tin",
+            "5. Hãy gọi cho Sơnn khi bị lạc nhéee, tui sẽ chạy ra đón mọi người"
         ],
         notes: [
-            "Dress code: Lịch sự, trang nhã.",
+            "Dress code: Hãy mang trang phục mà làm mọi người thấy đẹp nhất và tự tinn nhất <3",
             "Vì lễ khá đông và trưa nắng nên mọi người nhớ mang theo nước, quạt cầm tay và dù nha!"
         ]
     },
