@@ -54,7 +54,7 @@ const CONFIG = {
     // Hướng dẫn di chuyển & Lưu ý
     guide: {
         virtualTourLink: "https://360.tdtu.edu.vn/main/#node63,-91.54,-23.46,60.68,4", // Sơ đồ 360 độ (hiển thị dạng khung nhúng)
-        mapImage: "https://drive.google.com/uc?export=view&id=1ykocT-lrREFbVX7Vwt2PLsIgt7UTGTGM", // Link Google Drive đã fix để hiện ảnh
+        mapImage: "https://lh3.googleusercontent.com/d/1ykocT-lrREFbVX7Vwt2PLsIgt7UTGTGM", // Link Google Drive proxy để hiện ảnh
         steps: [
             "1. Đi vào bằng cổng 2 trên đường Nguyễn Hữu Thọ / Cổng 5 hoặc 7 trên đường D6.",
             "2. Hỏi các bác bảo vệ để gửi xe tại hầm tòa D, tòa F, tòa Nhà thi đấu, tòa M (Giá: 2.000đ/lượt). Hoặc gửi xe ở siêu thị Lotte Mart (Đ/c: 469 Nguyễn Hữu Thọ, Tân Hưng, Hồ Chí Minh) sau đó đặt xe/đi bộ (khoảng 500m) về Trường Đại học Tôn Đức Thắng",
