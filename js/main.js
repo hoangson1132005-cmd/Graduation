@@ -84,12 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTeacherMode = false;
     
     if (guestPronounRaw) {
-        const xh = guestPronounRaw.toLowerCase();
+        const xh = guestPronounRaw.toLowerCase().trim();
         if (xh === 'thay' || xh === 'thầy') { pronoun = "Thầy"; myPronoun = "Em"; endWord = "ạ"; isTeacherMode = true; }
         else if (xh === 'co' || xh === 'cô') { pronoun = "Cô"; myPronoun = "Em"; endWord = "ạ"; isTeacherMode = true; }
         else if (xh === 'anh') { pronoun = "anh"; myPronoun = "em"; endWord = "nhé"; }
         else if (xh === 'chi' || xh === 'chị') { pronoun = "chị"; myPronoun = "em"; endWord = "nhé"; }
-        else { pronoun = guestPronounRaw; } // Chấp nhận các xưng hô tùy chỉnh như "bé iu", "chú", v.v.
+        else if (xh === 'sếp' || xh === 'sep') { pronoun = "sếp"; myPronoun = "em"; endWord = "ạ"; }
+        else if (xh === 'ông' || xh === 'bà' || xh === 'bác' || xh === 'cô' || xh === 'chú' || xh === 'dì' || xh === 'cậu' || xh === 'mợ') { pronoun = guestPronounRaw; myPronoun = "con"; endWord = "ạ"; }
+        else if (xh === 'đại gia đình' || xh === 'gia đình' || xh === 'cả nhà') { pronoun = ""; myPronoun = "Con"; endWord = "ạ"; guestName = guestPronounRaw; }
+        else { pronoun = guestPronounRaw; } // Chấp nhận các xưng hô tùy chỉnh như "bé iu", "vợ", v.v.
     }
 
     if (isTeacherMode) {
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Will bypass boot sequence later
     }
 
-    const fullNameWithPronoun = guestPronounRaw ? `${pronoun} ${guestName}` : guestName;
+    const fullNameWithPronoun = pronoun ? `${pronoun} ${guestName}`.trim() : guestName;
     const myPronounCap = myPronoun.charAt(0).toUpperCase() + myPronoun.slice(1);
 
     // 2. Điền dữ liệu từ CONFIG
