@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestPronounRaw = urlParams.get('xh');
 
     // Mặc định
-    const guestName = guestNameRaw ? guestNameRaw : "bạn";
+    let guestName = guestNameRaw ? guestNameRaw : "bạn";
     let pronoun = "bạn";
     let myPronoun = "Mình";
     let endWord = "nhé";
